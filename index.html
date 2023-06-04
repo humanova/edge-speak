@@ -37,7 +37,7 @@
           "gender": gender,
           "rate": rate
         };
-        const response = await fetch("https://edge-speak2.westeurope.cloudapp.azure.com/tts", {
+        const response = await fetch("http://13.80.143.185/tts", {
           method: "POST",
           body: JSON.stringify(data),
           headers: {"Content-Type": "application/json"}

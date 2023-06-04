@@ -5,7 +5,7 @@ import edge_tts
 from edge_tts import VoicesManager
 from flask import Flask, request, jsonify, send_file
 
-from util import voices, languages
+from util import voices, languages, translator
 
 app = Flask(__name__)
 
@@ -36,6 +36,19 @@ async def text_to_speech():
     print(e.with_traceback)
     return jsonify({"error": "Couldn't synthesize audio."}), 500
 
+
+@app.route("/translate", methods=["POST"])
+def translate():
+    data = request.get_json()
+    text = data.get("text", "")
+    target_language = data.get("target_language", "en")
+
+    if not text:
+        return jsonify({"error": "Text field is missing or empty"}), 400
+
+    translation = translator.translate_text(text, target_language)
+
+    return jsonify({"translation": translation})
 
 if __name__ == "__main__":
   app.run(debug=False)

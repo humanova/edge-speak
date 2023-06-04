@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TTS and Translation Service Demo</title>
+  </head>
+  <body>
+    <h1>TTS and Translation Service Demo</h1>
+    
+    <!-- TTS Section -->
+    <h2>Text-to-Speech (TTS)</h2>
+    <label for="tts-text-input">Text to Synthesize:</label>
+    <textarea id="tts-text-input" rows="4" cols="50"></textarea>
+    <br>
+    <label for="tts-gender-select">Voice Gender:</label>
+    <select id="tts-gender-select">
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+    </select>
+    <br>
+    <label for="tts-rate-select">Speech Rate:</label>
+    <select id="tts-rate-select">
+      <option value="+20%">Fast</option>
+      <option value="+0%">Normal</option>
+      <option value="-20%">Slow</option>
+    </select>
+    <br>
+    <button id="synthesize-button" onclick="synthesize()">Synthesize Speech</button>
+    <br>
+    <audio id="tts-audio-element" controls></audio>
+
+    <!-- Translation Section -->
+    <h2>Translation</h2>
+    <label for="translation-text-input">Text to Translate:</label>
+    <textarea id="translation-text-input" rows="4" cols="50"></textarea>
+    <br>
+    <label for="target-language-select">Target Language:</label>
+    <select id="target-language-select">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+      <!-- Add more language options as needed -->
+    </select>
+    <br>
+    <button id="translate-button" onclick="translate()">Translate</button>
+    <br>
+    <p id="translation-result"></p>
+
+    <script>
+      // Function to synthesize speech using TTS
+      async function synthesize() {
+        const textInput = document.getElementById("tts-text-input").value;
+        const genderSelect = document.getElementById("tts-gender-select");
+        const gender = genderSelect.options[genderSelect.selectedIndex].value;
+        const rateSelect = document.getElementById("tts-rate-select");
+        const rate = rateSelect.options[rateSelect.selectedIndex].value;
+        const data = {
+          "text": textInput,
+          "gender": gender,
+          "rate": rate
+        };
+        const response = await fetch("http://13.80.143.185/tts", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-Type": "application/json"}
+        });
+        const blob = await response.blob();
+        const audioElement = document.getElementById("tts-audio-element");
+        audioElement.src = URL.createObjectURL(blob);
+        audioElement.play();
+      }
+
+      // Function to translate text
+      async function translate() {
+        const textInput = document.getElementById("translation-text-input").value;
+        const targetLanguageSelect = document.getElementById("target-language-select");
+        const targetLanguage = targetLanguageSelect.options[targetLanguageSelect.selectedIndex].value;
+        const data = {
+          "text": textInput,
+          "target_language": targetLanguage
+        };
+        const response = await fetch("http://13.80.143.185/translate", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-Type": "application/json"}
+        });
+        const translationData = await response.json();
+        const translationResult = translationData.translation.translations[0].text;
+        const translationResultElement = document.getElementById("translation-result");
+        translationResultElement.textContent = `Translation: ${translationResult}`;
+      }
+    </script>
+  </body>
+</html>

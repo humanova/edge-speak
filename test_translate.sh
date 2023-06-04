@@ -1,0 +1,1 @@
+curl -X POST -H "Content-Type: application/json" -d '{"text":"Hello, how are you?", "target_language":"fr"}' -w "%{response_code}\n%{response_body}" http://127.0.0.1:5000/translate
