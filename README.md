@@ -29,7 +29,7 @@ Content-Type: application/json
 
 {
   "text": "Lot sowy jest cichy.",
-  "target_language": "tr"
+  "target_language": "de"
 }
 ```
 Returns a JSON object containing the translation result.
