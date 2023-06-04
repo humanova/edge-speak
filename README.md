@@ -4,7 +4,8 @@ This is a Flask-based web service that provides text-to-speech (TTS) and text tr
 
 ## Demo
 
-https://github.com/humanova/edge-speak/blob/35200e984dbe0a9a940828d91506268cb2ee3dbe/media/esdemo.mp4
+https://github.com/humanova/edge-speak/assets/22047571/8ffacff1-7fb5-4749-a9bf-8a146cc69f3b
+
 ## Endpoints
 
 ### POST /tts
