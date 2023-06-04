@@ -2,6 +2,9 @@
 
 This is a Flask-based web service that provides text-to-speech (TTS) and text translation functionalities. It utilizes the Microsoft Edge TTS API (free to use) for synthesizing speech and the Azure Translator API (2M chars/month free) for text translation.
 
+## Demo
+
+https://github.com/humanova/edge-speak/blob/35200e984dbe0a9a940828d91506268cb2ee3dbe/media/esdemo.mp4
 ## Endpoints
 <br>
 
